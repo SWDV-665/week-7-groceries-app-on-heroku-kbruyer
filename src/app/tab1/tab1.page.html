@@ -14,7 +14,7 @@
       <ion-item-sliding *ngFor="let item of items; let i = index">
         <ion-item>
           <h6>{{item.name}}</h6>
-          <h6>{{item.quantity}}</h6>
+          <h6 style="padding-left: 5px;">{{item.quantity}}</h6>
         </ion-item>
         <ion-item-options side="end">
           <ion-button (click)="removeItem(item, i)" ion-button color="primary">
