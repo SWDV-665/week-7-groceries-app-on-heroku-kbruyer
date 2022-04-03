@@ -6,21 +6,25 @@
   </ion-header>
 
   <ion-content padding>
+    <h3 class="no-item" *ngIf="loadItem().length === 0">
+      No Item available on the list!
+    </h3>
     <ion-list>
-      <ion-list-header>
-        <h5>Items</h5>
-      </ion-list-header>
-
-      <ion-item-sliding *ngFor="let item of items; let i = index">
+      <ion-item-sliding *ngFor="let item of loadItem(); let i = index">
         <ion-item>
           <h6>{{item.name}}</h6>
           <h6 style="padding-left: 5px;">{{item.quantity}}</h6>
         </ion-item>
         <ion-item-options side="end">
-          <ion-button (click)="removeItem(item, i)" ion-button color="primary">
+          <button class="buttonPrimary" type="button" (click)="editItem(item, i)">
+            <ion-icon name="create-outline"></ion-icon>
+            Edit
+          </button>
+
+          <button class="buttonSecondary" type="button" (click)="removeItem(item, i)" ion-button color="secondary">
             <ion-icon name="trash-outline"></ion-icon>
             Done
-          </ion-button>
+          </button>
         </ion-item-options>
       </ion-item-sliding>
 
