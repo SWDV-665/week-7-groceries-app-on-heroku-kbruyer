@@ -28,9 +28,20 @@ export class Tab1Page {
       message: "Editing Item - " + index + "...",
       duration: 2000,
     });
-    toast.present();
+    await toast.present();
 
     this.InputDialogService.showPrompt(item, index);
+  }
+
+  async shareItem(item, index) {
+    console.log("Sharing Item - ", item, index);
+    const toast = await this.toastController.create({
+      message: "Sharing Item - " + index + "...",
+      duration: 2000,
+    });
+    await toast.present();
+
+    this.dataService.removeItem(index);
   }
 
   async removeItem(item, index) {
@@ -39,7 +50,7 @@ export class Tab1Page {
       message: "Removing Item - " + index + "...",
       duration: 2000,
     });
-    toast.present();
+    await toast.present();
 
     this.dataService.removeItem(index);
   }

@@ -1,38 +1,44 @@
 <ion-app>
-  <ion-header translucent>
-    <ion-toolbar>
-      <ion-title>{{title}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header translucent="">
+        <ion-toolbar>
+            <ion-title>{{title}}</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-content padding>
-    <h3 class="no-item" *ngIf="loadItem().length === 0">
-      No Item available on the list!
-    </h3>
-    <ion-list>
-      <ion-item-sliding *ngFor="let item of loadItem(); let i = index">
-        <ion-item>
-          <h6>{{item.name}}</h6>
-          <h6 style="padding-left: 5px;">{{item.quantity}}</h6>
-        </ion-item>
-        <ion-item-options side="end">
-          <button class="buttonPrimary" type="button" (click)="editItem(item, i)">
-            <ion-icon name="create-outline"></ion-icon>
-            Edit
-          </button>
+    <ion-content padding>
+        <h3 class="no-item" *ngIf="loadItem().length === 0">
+            No Item available on the list!
+        </h3>
+        <ion-list>
+            <ion-item-sliding *ngFor="let item of loadItem(); let i = index">
+                <ion-item>
+                    <h6>{{item.name}}</h6>
+                    <h6 style="padding-left: 5px;">{{item.quantity}}</h6>
+                </ion-item>
+                <ion-item-options side="end">
+                    <button class="buttonPrimary" type="button" (click)="editItem(item, i)">
+                        <ion-icon name="create-outline"></ion-icon>
+                        Edit
+                    </button>
 
-          <button class="buttonSecondary" type="button" (click)="removeItem(item, i)" ion-button color="secondary">
-            <ion-icon name="trash-outline"></ion-icon>
-            Done
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+                    <button class="buttonLight" type="button" (click)="shareItem(item, i)">
+                        <ion-icon name="share-outline"></ion-icon>
+                        Share
+                    </button>
 
-    </ion-list>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addItem()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
+                    <button class="buttonSecondary" type="button" (click)="removeItem(item, i)" ion-button
+                            color="secondary">
+                        <ion-icon name="trash-outline"></ion-icon>
+                        Done
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+
+        </ion-list>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="addItem()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </ion-content>
 </ion-app>
