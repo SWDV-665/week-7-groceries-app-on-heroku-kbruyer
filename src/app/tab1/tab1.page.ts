@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {AlertController, ToastController} from "@ionic/angular";
-import {GroceriesServiceService} from "../groceries-service.service";
-import {InputDialogServiceService} from "../input-dialog-service.service";
+import {GroceriesServiceProvider} from "../groceries-service.service";
+import {InputDialogServiceProvider} from "../input-dialog-service.service";
 import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 
 @Component({
@@ -12,17 +12,33 @@ import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 export class Tab1Page {
     title = "Grocery List";
 
+    items: any = [];
+    errorMessage: string;
+
     constructor(
         public toastController: ToastController,
         public alertController: AlertController,
-        public dataService: GroceriesServiceService,
-        public InputDialogService: InputDialogServiceService,
-        public socialSharing: SocialSharing
-    ) {
+        public dataService: GroceriesServiceProvider,
+        public InputDialogService: InputDialogServiceProvider,
+        public socialSharing: SocialSharing) {
+        dataService.dataChanged$.subscribe((dataChanged: boolean) => {
+            this.loadItems();
+        });
     }
 
-    loadItem() {
-        return this.dataService.getItems();
+    ionViewDidLoad() {
+        this.loadItems();
+    }
+
+    loadItems(): any {
+        this.dataService.getItems()
+            .subscribe(
+                items => this.items = items,
+                error => this.errorMessage = <any>error);
+    }
+
+    removeItem(id) {
+        this.dataService.removeItem(id);
     }
 
     async editItem(item, index) {
@@ -55,17 +71,6 @@ export class Tab1Page {
             console.error("Error while sharing ", error);
         });
 
-    }
-
-    async removeItem(item, index) {
-        console.log("Removing Item - ", item, index);
-        const toast = await this.toastController.create({
-            message: "Removing Item - " + index + "...",
-            duration: 2000,
-        });
-        await toast.present();
-
-        this.dataService.removeItem(index);
     }
 
     addItem() {

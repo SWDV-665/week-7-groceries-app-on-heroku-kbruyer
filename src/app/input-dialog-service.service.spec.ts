@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InputDialogServiceService } from './input-dialog-service.service';
+import { InputDialogServiceProvider } from './input-dialog-service.service';
 
 describe('InputDialogServiceService', () => {
-  let service: InputDialogServiceService;
+  let service: InputDialogServiceProvider;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InputDialogServiceService);
+    service = TestBed.inject(InputDialogServiceProvider);
   });
 
   it('should be created', () => {
