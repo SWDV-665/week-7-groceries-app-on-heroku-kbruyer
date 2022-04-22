@@ -12,7 +12,7 @@ import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 export class Tab1Page {
     title = "Grocery List";
 
-    items: any = [];
+    items = [];
     errorMessage: string;
 
     constructor(
@@ -30,26 +30,14 @@ export class Tab1Page {
         this.loadItems();
     }
 
-    loadItems(): any {
-        this.dataService.getItems()
-            .subscribe(
-                items => this.items = items,
-                error => this.errorMessage = <any>error);
+    loadItems() {
+        this.dataService.getItems().subscribe(
+            items => this.items = items,
+            error => this.errorMessage = <any>error);
     }
 
-    removeItem(id) {
-        this.dataService.removeItem(id);
-    }
-
-    async editItem(item, index) {
-        console.log("Editing Item - ", item, index);
-        const toast = await this.toastController.create({
-            message: "Editing Item - " + index + "...",
-            duration: 2000,
-        });
-        await toast.present();
-
-        await this.InputDialogService.showPrompt(item, index);
+    async removeItem(item, index) {
+        this.dataService.removeItem(index);
     }
 
     async shareItem(item, index) {
@@ -71,6 +59,17 @@ export class Tab1Page {
             console.error("Error while sharing ", error);
         });
 
+    }
+
+    async editItem(item, index) {
+        console.log("Editing Item - ", item, index);
+        const toast = await this.toastController.create({
+            message: "Editing Item - " + index + "...",
+            duration: 2000,
+        });
+        await toast.present();
+
+        await this.InputDialogService.showPrompt(item, index);
     }
 
     addItem() {
